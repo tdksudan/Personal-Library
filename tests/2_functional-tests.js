@@ -156,7 +156,7 @@ suite('Functional Tests', function() {
       test('Test POST /api/books/[id] with comment, id not in db', function(done){
         chai 
          .request(server)
-         .post('/api/books/000000000000')
+         .post('/api/books/000000000000000000000000')
          .send({comment: 'Oops'})
          .end(function(err, res){
           assert.equal(res.status, 200)
@@ -194,10 +194,23 @@ suite('Functional Tests', function() {
         //done();
       });
 
+      test('Test DELETE /api/books', function (done) {
+        chai
+          .request(server)
+          .delete('/api/books')
+          .end(function (err, res) {
+          assert.equal(res.status, 200);
+          assert.equal(res.text, 'complete delete successful');
+          done();
+          });
+      });
+
+
+
       test('Test DELETE /api/books/[id] with  id not in db', function(done){
         chai
          .request(server)
-         .delete('/api/books/000000000')
+         .delete('/api/books/000000000000000000000000')
          .end(function(err,res){
            assert.equal(res.status, 200);
            assert.equal(res.text, 'no book exists');
